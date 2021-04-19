@@ -3,12 +3,15 @@ import { statsPath } from './constants';
 
 let statsData = {};
 
-// The file will not exist in develop stages.
 try {
   statsData = require(statsPath);
 }
-catch (ex) {
-  console.log(ex);
+catch (e) {
+  if (e instanceof Error && e.code === "MODULE_NOT_FOUND") {
+    console.log('No loadable component stats. The file will not exist in develop stages.');
+  } else {
+    throw e;
+  }
 }
 
 const extractor = new ChunkExtractor({
