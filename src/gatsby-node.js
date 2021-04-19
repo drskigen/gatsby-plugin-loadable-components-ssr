@@ -7,7 +7,7 @@ export const onCreateWebpackConfig = ({ actions, stage }) => {
     actions.setWebpackConfig({
       plugins: [
         new LoadablePlugin({
-          filename: statsFilename,
+          filename: stage === 'develop' ? `public/${statsFilename}` : statsFilename,
           writeToDisk: true,
         }),
       ],
